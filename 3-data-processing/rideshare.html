@@ -86,6 +86,10 @@
 
         console.log("---------------------")
         console.log("PART 1...")
+        function formatUSD(price) {
+            return `$${price.toFixed(2)}`
+        }
+        
         // Part A
 
         console.log("A)")
@@ -121,19 +125,15 @@
         var fares = trip.stops.map(function(stop){
             return (stop.fare)
         })
-        function formatUSD(number) {
-            return new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD'
-        }).format(number);
-        }
-
-        let amount = fares
-        let formattedAmount = formatUSD(amount);
-        console.log(formattedAmount);
+        
 
         console.log("FARES:", fares)
+        //can't do $ with numerical values -> becomes a string
 
+        //string - display values
+        fares.forEach(function(fare){
+            console.log(formatUSD(fare))
+        })
 
 
         console.log("---------------------")
