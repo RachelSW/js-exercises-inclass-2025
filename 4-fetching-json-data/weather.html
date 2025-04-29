@@ -85,18 +85,37 @@
         fetch(requestUrl).then(response => response.json())
             .then(function(data){
                 console.log("DATA", data)
-
+                //make this data available in the global scope
+                //this will only be helpful for us manually
+                //dataSomeday = data
 
                 console.log("---------------------")
                 console.log("PART 1...")
 
+                console.log("DATE:", data.properties.generatedAt)
 
+                console.log("PERIODS:", data.properties.periods.length)
 
+                var daytimePeriods = data.properties.periods.filter(function(period){
+                    return period.isDaytime == true
+                })
+                console.log("DAYTIME PERIODS:", daytimePeriods.length)
+
+                var arr = ["a", "b", "c", "d"]
+
+                daytimePeriods.forEach(function(p) {
+                    console.log("----")
+                    console.log(p.name,p.temperature + degreeSymbol + p.temperatureUnit)
+                    console.log(p.shortForecast)
+                    })
+
+                
+                    
 
                 console.log("---------------------")
                 console.log("PART 2...")
 
-
+                
 
 
             })
