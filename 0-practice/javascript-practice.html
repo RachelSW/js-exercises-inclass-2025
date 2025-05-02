@@ -29,7 +29,7 @@
         console.log("STRING:", s)
 
         console.log("-----------------")
-        var d = new Date(2025,4,2)
+        var d = new Date(2025,4,2) // months are zero-based, so Jan = 0
         console.log("DATE:")
         console.log(d) //> Fri May 02 2025 00:00:00 GMT-0400 (Eastern Daylight Time)
         console.log(d.toDateString()) //> Fri May 02 2025

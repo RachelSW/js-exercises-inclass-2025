@@ -64,13 +64,10 @@
         console.log("---------------------")
         console.log("PART 1...")
 
-        // Celsius temperature
+        // direct conversion
         var tempC = -270
-
-        // Fahrenheit temperature
         var tempF = ((9/5) * tempC) + 32
 
-        // log both temperatures to the console
         console.log("C:", tempC)
         console.log("F:", tempF)
 
@@ -78,6 +75,7 @@
         console.log("---------------------")
         console.log("PART 2...")
 
+        // function conversion
         function calculateTemp(c) {
             // convert Celsius to Fahrenheit
             return ((9/5) * c) + 32
@@ -93,9 +91,9 @@
         console.log("---------------------")
         console.log("PART 3...")
 
-        var btn = document.getElementById("calculate")
-        var inputC = document.getElementById("input-temp-c")
-        var displayF = document.getElementById("display-temp-f")
+        var btn = document.getElementById("calculate") //button
+        var inputC = document.getElementById("input-temp-c") //input box
+        var displayF = document.getElementById("display-temp-f") //span
         
         function submit() {
             var tempC = inputC.value
