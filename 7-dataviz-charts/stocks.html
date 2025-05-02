@@ -87,6 +87,7 @@
             <option value="AAPL">Apple (AAPL)</option>
             <option value="NFLX">Netflix (NFLX)</option>
             <option value="SPOT">Spotify (SPOT)</option>
+            <option value="NVDA">NVIDIA (NVDA)</option>
         </select>
     </div>
 
@@ -120,7 +121,7 @@
 
         // AVOID HARD-CODING THE CREDENTIALS
         // USE SESSION STORAGE TO MINIMIZE THE NUMBER OF TIMES WE HAVE TO PROVIDE THE CREDENTIAL
-        // sessionStorage.clear()
+        sessionStorage.clear()
 
         // check session storage for the API Key:
         var apiKey = sessionStorage.getItem("ALPHAVANTAGE_API_KEY")
@@ -133,7 +134,7 @@
 
 
         // SELECTORS
-        // TODO
+        var stockSelector = document.getElementById("stock-selector")
 
 
 
@@ -142,7 +143,7 @@
             console.log("--------------------")
 
             // capturing form inputs:
-            var symbol = "NFLX" // TODO: get from drop-down instead
+            var symbol = stockSelector.value //"NFLX" // TODO: get from drop-down instead
             console.log("SYMBOL:", symbol)
 
             var requestUrl = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&datatype=csv&symbol=" + symbol + "&apikey=" + apiKey
@@ -150,17 +151,18 @@
                 console.log("DATA:", data)
                 // observe the prices are actually strings so to do math with them and chart them we will need to convert them to numbers
 
+
                 console.log("---------------------")
                 console.log("PART 1...")
 
-
+                console.log() // copy from the Zoom
 
 
 
                 console.log("---------------------")
                 console.log("PART 2...")
 
-
+                
 
 
 
@@ -171,10 +173,10 @@
         }
 
         // trigger an initial chart update when the page loads:
-        //TODO
+        updateDashboard()
 
         // trigger a subsequent chart update whenever the dropdown option is selected:
-        //TODO
+        stockSelector.addEventListener("change", updateDashboard, false)
 
     </script>
 </body>
