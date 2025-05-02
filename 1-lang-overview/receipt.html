@@ -65,22 +65,79 @@
         console.log("---------------------")
         console.log("PART 1...")
 
+        //used AI to look for currency formatting function as it seems more versatile than toFixed function for displaying prices as strings
+        function formatUSD(price){
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD'
+            }).format(price)
+        }
+
+        var price = 4.6777
+        var newPrice = formatUSD(price)
+
+        console.log(price)
+        console.log(newPrice)
 
 
 
         console.log("---------------------")
         console.log("PART 2...")
 
+        //looked at solutions to learn backtick method for creating string
+        function formatPct(percentage){
+            return `${(percentage * 100).toFixed(2)}%`
+        }
 
+        var percentage = .0875
+        var newPct = formatPct(percentage)
+
+        console.log(percentage)
+        console.log(newPct)
+
+        
+        console.log("---------------------")
+        console.log("PART 3...")
+        
+        function calculateTax(){
+            return subtotal * taxRate
+        } 
+
+        function calculateTotal(){
+            return subtotal + calculateTax(taxOwed)
+        }
+
+        var subtotal = 19.41
+        var taxRate = .0875
+        var taxOwed = calculateTax()
+        var totalAmt = calculateTotal()
+
+        console.log("SUBTOTAL:", formatUSD(subtotal))
+        console.log("TAX RATE:", formatPct(taxRate))
+        console.log("TAX OWED:", formatUSD(taxOwed))
+        console.log("TOTAL AMT:", formatUSD(totalAmt))
 
 
 
         console.log("---------------------")
-        console.log("PART 3...")
+        console.log("PART 4...")
 
+        function generateReceipt(subtotal, taxRate){
+            return {
+                subtotal: subtotal,
+                taxRate: taxRate,
+                taxOwed: taxOwed,
+                totalAmt: totalAmt}
+        }
 
-
-
+        var taxRate = .0875
+        var receipt = generateReceipt(19.41, taxRate)
+    
+        console.log("RECEIPT")
+        console.log("SUBTOTAL:", formatUSD(receipt.subtotal))
+        console.log("TAX RATE:", formatPct(receipt.taxRate))
+        console.log("TAX OWED:", formatUSD(receipt.taxOwed))
+        console.log("TOTAL AMT:", formatUSD(receipt.totalAmt))
     </script>
 </body>
 </html>
