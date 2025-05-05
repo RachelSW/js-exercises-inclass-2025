@@ -101,6 +101,9 @@
         //var d = trip.driver
         //console.log(d.first_name)
 
+        // Part B
+        console.log("B)")
+        console.log("LICENSE:", trip.vehicle.licensePlate)
 
         // Part C
         console.log("C)")
@@ -108,7 +111,12 @@
 
         // Part D
         console.log("D)")
-        console.log("FIRST DESTINATION:", trip.stops[0].destination) //use 0 to take first object from array, use square brackets to access array
+        console.log("FIRST STOP:", trip.stops[0].destination) //use 0 to take first object from array, use square brackets to access array
+
+        // Part E - referred to solutions to find syntax for length - 1
+        console.log("E)")
+        console.log("LAST STOP:", trip.stops[trip.stops.length - 1].destination) // dynamically give last element via stops.length - 1
+
 
         // Part F
         console.log("F)")
@@ -125,7 +133,6 @@
         var fares = trip.stops.map(function(stop){
             return (stop.fare)
         })
-        
 
         console.log("FARES:", fares)
         //can't do $ with numerical values -> becomes a string
@@ -136,9 +143,33 @@
         })
 
 
+        // Part H
+        console.log("H)")
+        
+        //used AI to figure out reduce and accumulator syntax
+        var totalFare = fares.reduce(function(accumulator, fare){
+            return accumulator + fare
+        }, 0)
+
+        console.log("TOTAL FARE:", formatUSD(totalFare))
+
+
         console.log("---------------------")
         console.log("PART 2...")
 
+        var displayDriver = document.getElementById("display-driver")
+        var displayVehicle = document.getElementById("display-vehicle")
+
+        displayDriver.innerText = trip.driver.first_name
+        displayVehicle.innerText = trip.vehicle.make + (" ") + trip.vehicle.model + (", ") + trip.vehicle.licensePlate
+        
+        //referred to AI and solutions to explain how/why to create an element and append it to a parent
+        var displayPassenger = document.getElementById("display-passengers")
+        trip.stops.forEach(function(stop){
+            var li = document.createElement("li") // create a new <li> for each passenger
+            li.innerText = stop.passenger
+            displayPassenger.appendChild(li) // append <li> to parent element 
+        })
 
     </script>
 
