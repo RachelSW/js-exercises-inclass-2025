@@ -46,9 +46,26 @@
         and display the resulting number of years and actual ending balance on the page.
     </p>
 
+    <label>Initial balance:</label>
+    <input id="input-initial-balance" type="number" placeholder="150000" value="150000"></input><br>
+    <label>Desired ending balance:</label>
+    <input id="desired-ending-balance" type="number" placeholder="1000000" value="1000000"></input><br>
+    <label>Mean:</label>
+    <input id="mean" type="number" placeholder=".08" value=".08"></input><br>
+    <label>Standard deviation:</label>
+    <input id="std-dev" type="number" placeholder=".15" value=".15"></input><br>
 
+    <button id="calculate">Calculate</button>
+
+<p>
+<label>Number of years:</label>
+<span id="display-number-years">TODO</span><br>
+<label>Actual ending balance:</label>
+<span id="display-ending-balance">TODO</span>
+</p>
 
     <script src="https://cdn.jsdelivr.net/npm/d3-random@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
     <script type="text/javascript">
 
         function formatUSD(price) {
@@ -75,15 +92,53 @@
         console.log("---------------------")
         console.log("PART 2...")
 
+        var balance = 150000
+        var year = 0
+        var randomRate = d3.randomNormal(.08,.15)
 
+        while(balance < 1000000){
+            year = year + 1
+            var rate = randomRate()
+            balance = balance * (1 + rate)
 
-
-
+            console.log("Year", year, "Rate", rate.toFixed(2), "Balance", formatUSD(balance))
+        }
+        console.log("DONE!")
 
         console.log("---------------------")
         console.log("PART 3...")
 
+        //used AI to help with debugging - the biggest issues were defining the different balances (initial, desired, and current)
 
+        var btn = document.getElementById("calculate")
+        var displayYear = document.getElementById("display-number-years")
+        var displayEndingbalance = document.getElementById("display-ending-balance")
+
+        function submit(){
+            var initialBalance = document.getElementById("input-initial-balance").valueAsNumber
+            var desiredBalance = document.getElementById("desired-ending-balance").valueAsNumber
+            var year = 0
+            var mean = document.getElementById("mean").valueAsNumber
+            var stdDev = document.getElementById("std-dev").valueAsNumber
+            var randomRate = d3.randomNormal(mean,stdDev)
+            var currentBalance = initialBalance
+
+            while(currentBalance < desiredBalance){
+                year = year + 1
+                var rate = randomRate()
+                currentBalance = currentBalance * (1 + rate)
+                console.log("Year", year, "Rate", rate.toFixed(2), "Balance", formatUSD(currentBalance))
+            }
+
+            console.log("DONE!");
+            console.log("Number of years:", year)
+            console.log("Actual ending balance:", formatUSD(currentBalance))
+
+            displayYear.innerText = year
+            displayEndingbalance.innerText = formatUSD(currentBalance)
+        }
+
+        btn.addEventListener("click", submit, false)
 
 
     </script>
