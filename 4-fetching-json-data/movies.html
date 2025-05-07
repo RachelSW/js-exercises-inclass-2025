@@ -82,21 +82,79 @@
             .then(function(data){
                 console.log("DATA", data)
 
-
                 console.log("---------------------")
                 console.log("PART 1...")
 
+                console.log("B)")
+                console.log("NUMBER OF MOVIES:", data.length)
 
+                console.log("C)")
+                data.forEach(movie => {
+                    console.log("TITLE:", movie.Title, "YEAR:", movie.Year) //need to match capitalization in JSON
+                })
 
+                console.log("D)")
 
-
+                console.log("HIGHEST RATED:")
+                //used ChatGPT to figure out sort function by rating
+                data.sort(function(a, b){
+                    return b.Rating - a.Rating //use b to a to sort highest to lowest
+                })
+                data.forEach(movie => {
+                    console.log("TITLE:", data[0].Title, "RATING:", data[0].Rating) //need to loop again to access each move in the sort
+                })
 
                 console.log("---------------------")
                 console.log("PART 2...")
 
+                //resort since the previous sorted by rating
+                data.sort(function(a, b){
+                    return a.Year - b.Year // Id is a string so can't sort based on that
+                })
 
+                //add dropdown options
+                var select = document.getElementById("select-movie")
 
+                data.forEach(movie => {
+                    
+                    var option = document.createElement("option") //create an option for the select element
+                    option.value = movie.Id
+                    option.innerText = movie.Title
+                    select.appendChild(option)
+                })
 
+                var displayTitle = document.getElementById("display-title")
+                var displayYear = document.getElementById("display-year")
+                var displayRating = document.getElementById("display-rating")
+                var displayImage = document.getElementById("image-container")
+
+                //used solutions and AI to figure out this function
+                function updateMovieInfo(){
+                    var selectedMovie = document.getElementById("select-movie").value                 //match selected movie with data
+                    var selectedId = select.value
+                    var selectedMovie = data.find(function(movie) {
+                        return movie.Id === selectedId;  // find matching movie
+
+                    })
+
+                    if (selectedMovie) {
+                        displayTitle.textContent = selectedMovie.Title
+                        displayYear.textContent = selectedMovie.Year
+                        displayRating.textContent = selectedMovie.Rating
+
+                        displayImage.innerHTML = "" // clear old image first
+                        var image = document.createElement("img")
+                        image.src = selectedMovie["Thumbnail Image URL"]
+                        displayImage.append(image)
+                    } else {
+                        displayTitle.textContent = "TODO"
+                        displayYear.textContent = "TODO"
+                        displayRating.textContent = "TODO"
+                        displayImage.innerHTML = ""
+                    }
+                }
+
+                select.addEventListener("change", updateMovieInfo, false)
 
             })
             .catch(err => console.log(err))

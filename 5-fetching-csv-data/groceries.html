@@ -82,9 +82,23 @@
             console.log("---------------------")
             console.log("PART 1...")
 
+            console.log("B)")
+            console.log("NUMBER OF PRODUCTS:", products.length)
+            
+            console.log("C)")
+            products.forEach(function(product){
+                var price = parseFloat(product.price) //turns string into number to be able to formt
+                console.log(product.name,`$${price.toFixed(2)}`)
+            })
+            
+            console.log("D)")
 
-
-
+            products.forEach(function(product) {
+                var dept = product.department
+                if(product){
+                departments.push(n)
+                }
+            })
 
 
             console.log("---------------------")
