@@ -92,7 +92,7 @@
                 console.log("---------------------")
                 console.log("PART 1...")
 
-                console.log("DATE:", data.properties.generatedAt)
+                console.log("DATE:", data.properties.generatedAt) //found by going to JSON file and looking at 'properties' object
 
                 console.log("PERIODS:", data.properties.periods.length)
 
@@ -115,12 +115,54 @@
                 console.log("---------------------")
                 console.log("PART 2...")
 
-                
+                //used ChatGPT to learn how to create table dynamically in JS using appendChild (vs. directly adding HTML code)
 
+                var span = document.getElementById("display-date")
+                span.textContent = data.properties.generatedAt
+                
+                var table = document.getElementById("display-forecast")
+                
+                var headerRow = document.createElement("tr") //create header row
+                var headers = ['Period', 'Temperature', 'Forecast', 'Icon'] //add header cell <th> to header row
+
+                headers.forEach(headerText => {
+                    var th = document.createElement("th")
+                    th.textContent = headerText
+                    headerRow.appendChild(th) //append each <th> to header row
+                })
+
+                table.appendChild(headerRow) //add header row to table - goes here because it's added AFTER it is populated with <th> elements
+
+                daytimePeriods.forEach(function(period){
+                    var row = document.createElement("tr")
+                    
+                    var cellPeriodname = document.createElement("td")
+                    cellPeriodname.textContent = period.name
+                    cellPeriodname.style.textAlign = "center" // center alignment
+                    row.appendChild(cellPeriodname) 
+
+                    var cellTemp = document.createElement("td")
+                    cellTemp.textContent = period.temperature + degreeSymbol
+                    cellTemp.style.textAlign = "center" // center alignment
+                    row.appendChild(cellTemp)
+
+                    var cellForecast = document.createElement("td")
+                    cellForecast.textContent = period.shortForecast
+                    cellForecast.style.textAlign = "center" // center alignment
+                    row.appendChild(cellForecast)
+
+                    var cellIcon = document.createElement("td")
+                    var cellIconimg = document.createElement("img")
+                    cellIconimg.src = period.icon // use .src to set image source URL (not innerHTML)
+                    cellIcon.appendChild(cellIconimg) //append icon img to the td cell
+                    row.appendChild(cellIcon)
+
+                    table.appendChild(row)
+                })
 
             })
             .catch(err => console.log(err))
-
+    
     </script>
 </body>
 </html>

@@ -62,13 +62,56 @@
         console.log("---------------------")
         console.log("PART 1...")
 
+        console.log("A)")
+        console.log(products.length)
 
+        console.log("B)")
+        products.forEach(function(product){
+            console.log(product.name, `$${product.price.toFixed(2)}`)
+        })
 
+        console.log("C)")
+        var matchingProducts = products.filter(function(product){
+            return product.price < 50
+        })
+        console.log(matchingProducts)
 
+        
+        console.log("D)")
+        console.log(matchingProducts.length)
 
 
         console.log("---------------------")
         console.log("PART 2...")
+
+        //used ChatGPT to help figure out that I need separate p elements for each product
+        var div = document.getElementById("display-products")
+        products.forEach(function(product){
+            var productDiv = document.createElement("div")
+            div.appendChild(productDiv)
+            
+            var nameP = document.createElement("p")
+            nameP.innerText = product.name
+            productDiv.appendChild(nameP)
+
+            var descripP = document.createElement("p")
+            descripP.innerText = product.description
+            productDiv.appendChild(descripP)
+
+            var priceP = document.createElement("p")
+            priceP.innerText = `$${product.price.toFixed(2)}`
+            productDiv.appendChild(priceP)
+
+            var img = document.createElement("img")
+            img.src = product.imageURL
+            productDiv.appendChild(img)
+
+            var hr = document.createElement("hr")
+            productDiv.appendChild(hr)
+
+        })
+
+        
 
 
 
