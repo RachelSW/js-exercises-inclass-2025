@@ -91,22 +91,53 @@
                 console.log(product.name,`$${price.toFixed(2)}`)
             })
             
-            console.log("D)")
-
+            //console.log("D)")
+            var departments = []
             products.forEach(function(product) {
-                var dept = product.department
-                if(product){
-                departments.push(n)
+                if (!departments.includes(product.department)) {  // if we haven't seen this department yet
+                    departments.push(product.department)    // add it to the list of unique departments
                 }
             })
+
+            console.log("E)")
+            console.log("NUMBER OF UNIQUE DEPARTMENTS:", departments.length)
+
+            console.log("F)")
+
+            departments.forEach(function(dept) {
+                console.log(dept.toUpperCase());
+            })
+
+            //console.log("G)")
+            var beverages = [] //need empty array
+            products.forEach(function(product) {
+                if(product.department === "beverages"){
+                    beverages.push(product) //if condition true,adds whole product obj to beverages array
+                }
+            })
+
+            console.log("H)")
+            console.log("NUMBER OF BEVERAGE PRODUCTS:", beverages.length)
+
+            console.log("I)")
+                var beveragePrices = beverages.map(function(product){
+                    return beverages = parseFloat(product.price)
+            })
+            var averagePrice = d3.mean(beveragePrices)
+            console.log("AVERAGE BEVERAGE PRICE:", `$${averagePrice.toFixed(2)}`)
 
 
             console.log("---------------------")
             console.log("PART 2...")
 
+            var ul = document.getElementById("display-groceries")
 
-
-
+            products.forEach(function(product){
+                var li = document.createElement("li")
+                var price = parseFloat(product.price) //turns string into number to be able to formt
+                li.textContent = product.name + " " + `$${price.toFixed(2)}`
+                ul.appendChild(li)
+            })
 
 
 
