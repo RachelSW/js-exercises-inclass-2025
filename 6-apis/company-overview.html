@@ -59,14 +59,14 @@
     <hr>
     <h2>Display</h2>
 
-    <label>Stock Symbol:</label>
+    <label for="input-symbol">Stock Symbol:</label>
     <input id="input-symbol" type="text" placeholder="NFLX" value="NFLX"></input>
     <button id="lookup">Lookup</button>
 
     <div id="display-company-info">
         <p>Name: <span id="display-name">TODO</span></p>
         <p>Description: <span id="display-description">TODO</span></p>
-        <p>Website: <a id="display-link" href="#TODO">TODO</span></p>
+        <p>Website: <a id="display-link" href="#TODO">TODO</a></p>
     </div>
 
 
@@ -87,6 +87,11 @@
         }
 
 
+        var inputSymbol = document.getElementById("input-symbol")
+        var lookupButton = document.getElementById("lookup")
+        var displayName = document.getElementById("display-name")
+        var displayDescrip = document.getElementById("display-description")
+        var displayLink = document.getElementById("display-link")
 
         // FUNCTION DEFINITION
         function lookupCompany() {
@@ -100,29 +105,40 @@
                 console.log("---------------------")
                 console.log("PART 1...")
 
+                console.log(data.Symbol)
+                console.log(data.Name)
+                console.log(data.Description)
+                console.log(data.OfficialSite)
 
-
-
-
-
+            
                 console.log("---------------------")
                 console.log("PART 2...")
 
 
-
-
+                displayName.innerText = data.Name
+                displayDescrip.innerText = data.Description
+                displayLink.innerText = data.OfficialSite
+                displayLink.href = data.OfficialSite
 
             }).catch(function(error) {
                 console.error("ERROR:", error)
             })
         }
+     
 
         // FUNCTION INVOCATIONS
         // invoke function when the page loads:
-        //lookupCompany()
+        lookupCompany()
         // invoke function when button is clicked:
-        //lookupButton.addEventListener("click", lookupCompany, false)
+        lookupButton.addEventListener("click", lookupCompany, false)
 
+
+           
+
+                
+
+
+    
     </script>
 </body>
 </html>
