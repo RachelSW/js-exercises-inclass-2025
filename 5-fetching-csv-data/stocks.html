@@ -88,22 +88,33 @@
         var filename = `daily_adjusted_${symbol}.csv`
         var requestUrl = `https://raw.githubusercontent.com/prof-rossetti/intro-software-dev-python-book/refs/heads/main/docs/data/${filename}`
 
+        
         d3.csv(requestUrl).then(function(data) {
             console.log("DATA:", data)
 
             console.log("---------------------")
             console.log("PART 1...")
 
+            var latest = data[0]
+            var earliest = data[data.length - 1]
 
+            var latestPrice = parseFloat(latest.adjusted_close)
+            var earliestPrice = parseFloat(earliest.adjusted_close)
+            var pctChange = (latestPrice - earliestPrice) / earliestPrice
 
+            console.log("NUMBER OF DAYS:", data.length)
+            console.log("EARLEST DAY:", earliest.timestamp, "Price:", formatUSD(earliestPrice))
+            console.log("LATEST DAY:", latest.timestamp, "Price:", formatUSD(latestPrice))
+            console.log("PERCENTAGE CHANGE:", formatPct(pctChange))
 
 
             console.log("---------------------")
             console.log("PART 2...")
 
-
-
-
+            document.getElementById("display-symbol").textContent = symbol
+            document.getElementById("display-earliest").textContent = `${earliest.timestamp}: ${formatUSD(earliestPrice)}`
+            document.getElementById("display-latest").textContent = `${latest.timestamp}: ${formatUSD(latestPrice)}`
+            document.getElementById("display-pct-change").textContent = formatPct(pctChange)
 
 
             }).catch(function(error) {
