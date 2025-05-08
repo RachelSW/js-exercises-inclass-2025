@@ -92,15 +92,40 @@
             console.log("---------------------")
             console.log("PART 1...")
 
+            console.log("NUMBER OF MARKETS:", data.markets.length)
 
+            var equityMarkets = data.markets.filter(market => market.market_type === "Equity")
+            console.log("NUMBER OF EQUITY MARKETS:", equityMarkets.length)
 
+            equityMarkets.forEach(market => {
+                console.log("MARKET TYPE:", market.market_type, "REGION:", market.region)
+            });
 
+            var usMarket = equityMarkets.find(market => market.region === "United States")
+            console.log("US MARKET DETAILS:")
+            console.log("Type:", usMarket.market_type)
+            console.log("Primary Exchanges:", usMarket.primary_exchanges)
+            console.log("Open:", usMarket.local_open)
+            console.log("Close:", usMarket.local_close)
+            console.log("Status:", usMarket.current_status.toUpperCase())
 
             console.log("---------------------")
             console.log("PART 2...")
 
+            var marketDiv = document.getElementById("display-market-info")
+            var region = document.getElementById("display-region")
+            var type = document.getElementById("display-type")
+            var exchanges = document.getElementById("display-exchanges")
+            var open = document.getElementById("display-open")
+            var close = document.getElementById("display-close")
+            var status = document.getElementById("display-status")
 
-
+            region.textContent = usMarket.region
+            type.textContent = usMarket.market_type
+            exchanges.textContent = usMarket.primary_exchanges
+            open.textContent = usMarket.local_open
+            close.textContent = usMarket.local_close
+            status.textContent = usMarket.current_status.toUpperCase()
 
         }).catch(function(error) {
             console.error("ERROR:", error)
